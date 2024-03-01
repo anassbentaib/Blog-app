@@ -4,4 +4,5 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import Projects from "./Projects";
 import Dashboard from "./Dashboard";
-export { Home, Dashboard, About, Signin, Signup, Projects };
+import Footer from "../Components/Footer";
+export { Home, Dashboard, About, Signin, Signup, Projects, Footer };

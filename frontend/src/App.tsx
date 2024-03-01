@@ -1,5 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { About, Dashboard, Home, Projects, Signin, Signup } from "./pages";
+import {
+  About,
+  Dashboard,
+  Footer,
+  Home,
+  Projects,
+  Signin,
+  Signup,
+} from "./pages";
 import { Header } from "./Components";
 
 const App = () => {
@@ -14,6 +22,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
