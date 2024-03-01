@@ -3,22 +3,23 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import OAuth from "../Components/OAuth";
-// import {
-//   signInStart,
-//   signInSuccess,
-//   signInFailure,
-// } from '../redux/user/userSlice';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // const { loading, error: errorMessage } = useSelector((state) => state.user);
-  // const dispatch = useDispatch();
+  const { loading, error: errorMessage } = useSelector(
+    (state: any) => state.user
+  );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e: any) => {
@@ -27,10 +28,10 @@ export default function SignIn() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      // return dispatch(signInFailure("Please fill all the fields"));
+      return dispatch(signInFailure("Please fill all the fields"));
     }
     try {
-      // dispatch(signInStart());
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -38,11 +39,11 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (data.success === false) {
-        // dispatch(signInFailure(data.message));
+        dispatch(signInFailure(data.message));
       }
 
       if (res.ok) {
-        // dispatch(signInSuccess(data));
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
