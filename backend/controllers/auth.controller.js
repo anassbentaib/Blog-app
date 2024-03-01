@@ -1,6 +1,9 @@
 import User from "../models/user.modal.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
+import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -24,6 +27,40 @@ export const signup = async (req, res, next) => {
   try {
     await newUser.save();
     res.json("Signup successfuly");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password || email === "" || password === "") {
+    next(errorHandler(400, "All fields are required"));
+  }
+  try {
+    const validUser = await User.findOne({ email: email });
+    if (!validUser) {
+      return next(errorHandler(404, "Invalid Credentials"));
+    }
+    const validPassword = await bcryptjs.compare(password, validUser.password);
+
+    if (!validPassword) {
+      return next(errorHandler(400, "Invalid Credentials"));
+    }
+    const token = jwt.sign(
+      {
+        id: validUser?._id,
+      },
+      process.env.JWT_SECRET_KEY
+    );
+    const { password: pass, ...rest } = validUser?._doc;
+    res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .json(rest);
+    res.json("Signin successful");
   } catch (error) {
     next(error);
   }
