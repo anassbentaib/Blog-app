@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, ModalBody, TextInput } from "flowbite-react";
+import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -14,6 +14,10 @@ import {
   updateStart,
   updateSuccess,
   updateFailure,
+  deleteUserStart,
+  deleteUserFailure,
+  signoutSuccess,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -39,7 +43,6 @@ export default function DashProfile() {
   const [updateUserError, setUpdateUserError] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
-  console.log("🚀 ~ DashProfile ~ formData:", formData);
   const filePickerRef = useRef<any | null>();
   const dispatch = useDispatch();
   const handleImageChange = (e: any) => {
@@ -130,18 +133,18 @@ export default function DashProfile() {
   const handleDeleteUser = async () => {
     setShowModal(false);
     try {
-      //   dispatch(deleteUserStart());
+      dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
       });
       const data = await res.json();
       if (!res.ok) {
-        // dispatch(deleteUserFailure(data.message));
+        dispatch(deleteUserFailure(data.message));
       } else {
-        // dispatch(deleteUserSuccess(data));
+        dispatch(deleteUserSuccess(data));
       }
-    } catch (error) {
-      //   dispatch(deleteUserFailure(error.message));
+    } catch (error: any) {
+      dispatch(deleteUserFailure(error.message));
     }
   };
 
@@ -154,7 +157,7 @@ export default function DashProfile() {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        // dispatch(signoutSuccess());
+        dispatch(signoutSuccess());
       }
     } catch (error: any) {
       console.log(error.message);

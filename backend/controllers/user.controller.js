@@ -7,10 +7,12 @@ export const test = (req, res) => {
 };
 
 export const updateUser = async (req, res, next) => {
-  console.log("req.body", req.body);
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to update this user"));
   }
+  console.log("🚀 ~ updateUser ~ req.params.body:", req.params.body);
+
+  console.log("🚀 ~ updateUser ~ req.params.userId:", req.params.userId);
   if (req.body.password) {
     if (req.body.password.length < 6) {
       return next(errorHandler(400, "Password must be at least 6 characters"));
@@ -50,8 +52,30 @@ export const updateUser = async (req, res, next) => {
     );
     console.log("🚀 ~ updateUser ~ updatedUser:", updatedUser);
     const { password, ...rest } = updatedUser._doc;
-    console.log("🚀 ~ updateUser ~ rest:", rest);
     res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.userId) {
+    return next(errorHandler(403, "You are not allowed to update this user"));
+  }
+  try {
+    await User.findByIdAndDelete(req.params.userId);
+    res.status(200).json("user has been deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const signOut = async (req, res, next) => {
+  try {
+    res
+      .clearCookie("access_token")
+      .status(200)
+      .json("user has been signed out");
   } catch (error) {
     next(error);
   }

@@ -6,8 +6,10 @@ import {
   BsTwitter,
   BsGithub,
   BsDribbble,
-  
+  BsBehance,
 } from "react-icons/bs";
+import { FaLinkedin } from "react-icons/fa";
+import { DiWebplatform } from "react-icons/di";
 export default function FooterCom() {
   return (
     <Footer container className="border border-t-8 border-teal-500">
@@ -74,11 +76,17 @@ export default function FooterCom() {
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTwitter} />
+            <Footer.Icon href="https://beanass.dev/" icon={DiWebplatform} />
             <Footer.Icon
-              href="https://github.com/sahandghavidel"
+              href="https://www.behance.net/anasstaaib"
+              icon={BsBehance}
+            />
+            <Footer.Icon
+              href="https://www.linkedin.com/in/anass-bentaib-3563ba233/"
+              icon={FaLinkedin}
+            />
+            <Footer.Icon
+              href="https://github.com/anassbentaib"
               icon={BsGithub}
             />
             <Footer.Icon href="#" icon={BsDribbble} />
