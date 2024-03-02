@@ -10,15 +10,11 @@ import {
 import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-// import {
-//   updateStart,
-//   updateSuccess,
-//   updateFailure,
-//   deleteUserStart,
-//   deleteUserSuccess,
-//   deleteUserFailure,
-//   signoutSuccess,
-// } from "../redux/user/userSlice";
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+} from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
@@ -28,10 +24,13 @@ export default function DashProfile() {
     (state: any) => state.user
   );
   const [imageFile, setImageFile] = useState<any | null>(null);
+
   const [imageFileUrl, setImageFileUrl] = useState<any | null>(null);
+
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState<
     any | null
   >(null);
+
   const [imageFileUploadError, setImageFileUploadError] = useState<any | null>(
     null
   );
@@ -40,6 +39,7 @@ export default function DashProfile() {
   const [updateUserError, setUpdateUserError] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
+  console.log("🚀 ~ DashProfile ~ formData:", formData);
   const filePickerRef = useRef<any | null>();
   const dispatch = useDispatch();
   const handleImageChange = (e: any) => {
@@ -56,16 +56,6 @@ export default function DashProfile() {
   }, [imageFile]);
 
   const uploadImage = async () => {
-    // service firebase.storage {
-    //   match /b/{bucket}/o {
-    //     match /{allPaths=**} {
-    //       allow read;
-    //       allow write: if
-    //       request.resource.size < 2 * 1024 * 1024 &&
-    //       request.resource.contentType.matches('image/.*')
-    //     }
-    //   }
-    // }
     setImageFileUploading(true);
     setImageFileUploadError(null);
     const storage = getStorage(app);
@@ -116,7 +106,7 @@ export default function DashProfile() {
       return;
     }
     try {
-      //   dispatch(updateStart());
+      dispatch(updateStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
@@ -126,14 +116,14 @@ export default function DashProfile() {
       });
       const data = await res.json();
       if (!res.ok) {
-        // dispatch(updateFailure(data.message));
+        dispatch(updateFailure(data.message));
         setUpdateUserError(data.message);
       } else {
-        // dispatch(updateSuccess(data));
+        dispatch(updateSuccess(data));
         setUpdateUserSuccess("User's profile updated successfully");
       }
     } catch (error: any) {
-      //   dispatch(updateFailure(error.message));
+      dispatch(updateFailure(error.message));
       setUpdateUserError(error.message);
     }
   };
