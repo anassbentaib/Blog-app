@@ -3,12 +3,13 @@ import {
   About,
   Dashboard,
   Footer,
+  Header,
   Home,
+  PrivateRoute,
   Projects,
   Signin,
   Signup,
 } from "./pages";
-import { Header } from "./Components";
 
 const App = () => {
   return (
@@ -19,7 +20,9 @@ const App = () => {
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/about" element={<About />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="/projects" element={<Projects />} />
       </Routes>
       <Footer />
