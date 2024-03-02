@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   About,
+  CreatePost,
   Dashboard,
   Footer,
   Header,
   Home,
+  OnlyAdminPrivateRoute,
   PrivateRoute,
   Projects,
   Signin,
@@ -22,6 +24,9 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<OnlyAdminPrivateRoute />}>
+          <Route path="/create-post" element={<CreatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
       </Routes>
