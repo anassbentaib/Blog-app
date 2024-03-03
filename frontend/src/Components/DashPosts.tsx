@@ -7,26 +7,25 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 export default function DashPosts() {
   const { currentUser } = useSelector((state: any) => state.user);
   const [userPosts, setUserPosts] = useState<any | null>([]);
+  console.log("🚀 ~ DashPosts ~ userPosts:", userPosts);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch(
-          `/api/post/get-posts?userId=${currentUser._id}`
-        );
-        const data = await res.json();
-        if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
-            setShowMore(false);
-          }
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch(`/api/post/get-posts?userId=${currentUser._id}`);
+      const data = await res.json();
+      if (res.ok) {
+        setUserPosts(data.posts);
+        if (data.posts.length < 9) {
+          setShowMore(false);
         }
-      } catch (error: any) {
-        console.log(error.message);
       }
-    };
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
     if (currentUser.isAdmin) {
       fetchPosts();
     }
@@ -54,7 +53,7 @@ export default function DashPosts() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `/api/post/delete-post/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
         }
@@ -73,7 +72,7 @@ export default function DashPosts() {
   };
 
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 w-full">
       {currentUser.isAdmin && userPosts.length > 0 ? (
         <>
           <Table hoverable className="shadow-md">
@@ -96,7 +95,10 @@ export default function DashPosts() {
                   <Table.Cell>
                     <Link to={`/post/${post.slug}`}>
                       <img
-                        src={post.image}
+                        src={
+                          post.image ||
+                          "https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.png"
+                        }
                         alt={post.title}
                         className="w-20 h-10 object-cover bg-gray-500"
                       />

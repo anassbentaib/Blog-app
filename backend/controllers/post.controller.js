@@ -31,8 +31,6 @@ export const getPosts = async (req, res, next) => {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirections = req.query.order === "asc" ? 1 : -1;
-
-    // Construct the query object dynamically
     const query = {};
     if (req.query.userId) query.userId = req.query.userId;
     if (req.query.category) query.category = req.query.category;
@@ -68,6 +66,19 @@ export const getPosts = async (req, res, next) => {
       totalPosts,
       posts,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deletePost = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, "You are not allowed to create a post"));
+  }
+  try {
+    await Post.findByIdAndDelete(req.params.postId);
+
+    res.status(200).json("post has been deleted!");
   } catch (error) {
     next(error);
   }
