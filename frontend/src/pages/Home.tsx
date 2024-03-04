@@ -38,7 +38,7 @@ export default function Home() {
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl font-semibold text-center">Recent Posts</h2>
             <div className="flex flex-wrap gap-4">
-              {posts.map((post) => (
+              {posts.map((post: any) => (
                 <PostCard key={post._id} post={post} />
               ))}
             </div>

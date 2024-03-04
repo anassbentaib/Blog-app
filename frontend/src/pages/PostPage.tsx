@@ -9,6 +9,7 @@ export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  console.log( error)
   const [post, setPost] = useState<any | null>(null);
   const [recentPosts, setRecentPosts] = useState<any | null>(null);
   const posts = recentPosts?.filter((postId: any) => postId !== post?._id);

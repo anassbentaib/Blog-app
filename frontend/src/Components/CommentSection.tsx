@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, TextInput, Textarea } from "flowbite-react";
+import { Alert, Button, Modal, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -103,7 +103,7 @@ export default function CommentSection({ postId }: { postId: string }) {
         method: "DELETE",
       });
       if (res.ok) {
-        const data = await res.json();
+         await res.json();
         setComments(
           comments.filter((comment: any) => comment._id !== commentId)
         );

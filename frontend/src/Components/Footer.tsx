@@ -1,9 +1,7 @@
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
 import {
-  BsFacebook,
-  BsInstagram,
-  BsTwitter,
+ 
   BsGithub,
   BsDribbble,
   BsBehance,

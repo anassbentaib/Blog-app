@@ -74,6 +74,7 @@ export default function UpdatePost() {
           setImageUploadProgress(progress.toFixed(0));
         },
         (error) => {
+          console.log( error)
           setImageUploadError("Image upload failed");
           setImageUploadProgress(null);
         },

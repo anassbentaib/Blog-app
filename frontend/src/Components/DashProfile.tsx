@@ -74,6 +74,8 @@ export default function DashProfile() {
         setImageFileUploadProgress(progress.toFixed(0));
       },
       (error) => {
+        console.log(error);
+        
         setImageFileUploadError(
           "Could not upload image (File must be less than 2MB)"
         );
