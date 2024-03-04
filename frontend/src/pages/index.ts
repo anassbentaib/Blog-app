@@ -12,9 +12,10 @@ import OnlyAdminPrivateRoute from "../Components/OnlyAdminPrivateRoute";
 import UpdatePost from "./updatePost";
 import PostPage from "./PostPage";
 import ScrollToTop from "../Components/ScrollToTop";
-
+import Search from "./Search";
 export {
   Home,
+  Search,
   PostPage,
   ScrollToTop,
   UpdatePost,

@@ -14,6 +14,7 @@ import {
   Signup,
   ScrollToTop,
   UpdatePost,
+  Search,
 } from "./pages";
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
       <Footer />
     </BrowserRouter>

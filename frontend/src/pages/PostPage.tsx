@@ -11,7 +11,7 @@ export default function PostPage() {
   const [error, setError] = useState(false);
   const [post, setPost] = useState<any | null>(null);
   const [recentPosts, setRecentPosts] = useState<any | null>(null);
-
+  const posts = recentPosts?.filter((postId: any) => postId !== post?._id);
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -96,10 +96,8 @@ export default function PostPage() {
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent articles</h1>
         <div className="flex flex-wrap gap-5 mt-5 justify-center">
-          {recentPosts &&
-            recentPosts?.map((post: any) => (
-              <PostCard key={post._id} post={post} />
-            ))}
+          {posts &&
+            posts?.map((post: any) => <PostCard key={post._id} post={post} />)}
         </div>
       </div>
     </main>
