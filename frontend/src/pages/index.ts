@@ -10,9 +10,13 @@ import Header from "../Components/Header";
 import CreatePost from "./CreatePost";
 import OnlyAdminPrivateRoute from "../Components/OnlyAdminPrivateRoute";
 import UpdatePost from "./updatePost";
+import PostPage from "./PostPage";
+import ScrollToTop from "../Components/ScrollToTop";
 
 export {
   Home,
+  PostPage,
+  ScrollToTop,
   UpdatePost,
   PrivateRoute,
   Dashboard,

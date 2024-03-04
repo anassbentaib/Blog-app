@@ -29,6 +29,7 @@ const Header = () => {
         console.log(data.message);
       } else {
         dispatch(signoutSuccess());
+        window.location.assign("/sign-in");
       }
     } catch (error: any) {
       console.log(error.message);
