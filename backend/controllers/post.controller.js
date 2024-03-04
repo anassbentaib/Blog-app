@@ -83,3 +83,23 @@ export const deletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updatePost = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, "You are not allowed to create a post"));
+  }
+  try {
+    const updatedPosts = await Post.findByIdAndUpdate(req.params.postId, {
+      $set: {
+        title: req.body.title,
+        content: req.body.content,
+        category: req.body.category,
+        image: req.body.image,
+      },
+    });
+
+    res.status(200).json(updatedPosts);
+  } catch (error) {
+    next(error);
+  }
+};

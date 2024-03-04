@@ -9,8 +9,11 @@ import PrivateRoute from "../Components/PrivateRoute";
 import Header from "../Components/Header";
 import CreatePost from "./CreatePost";
 import OnlyAdminPrivateRoute from "../Components/OnlyAdminPrivateRoute";
+import UpdatePost from "./updatePost";
+
 export {
   Home,
+  UpdatePost,
   PrivateRoute,
   Dashboard,
   CreatePost,

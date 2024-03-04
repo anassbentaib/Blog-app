@@ -11,6 +11,7 @@ import {
   Projects,
   Signin,
   Signup,
+  UpdatePost,
 } from "./pages";
 
 const App = () => {
@@ -25,8 +26,9 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
-        <Route element={<OnlyAdminPrivateRoute />}>
+        <Route element={<OnlyAdminPrivateRoute />}>/
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
       </Routes>
