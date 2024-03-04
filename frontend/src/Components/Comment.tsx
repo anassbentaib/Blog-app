@@ -6,9 +6,9 @@ import { Button, Textarea } from "flowbite-react";
 
 interface CommentProps {
   comment: any;
-  onLike: (value:any) => void;
-  onDelete: (value:any) => void;
-  onEdit: (comment:any, editedContent:any) => void;
+  onLike: (value: any) => void;
+  onDelete: (value: any) => void;
+  onEdit: (comment: any, editedContent: any) => void;
 }
 export default function Comment({
   comment,
@@ -16,8 +16,7 @@ export default function Comment({
   onEdit,
   onDelete,
 }: CommentProps) {
-  const [user, setUser] = useState<any| null>({});
-  console.log("🚀 ~ user:", user)
+  const [user, setUser] = useState<any | null>({});
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
   const { currentUser } = useSelector((state: any) => state.user);
@@ -29,7 +28,7 @@ export default function Comment({
         if (res.ok) {
           setUser(data);
         }
-      } catch (error:any) {
+      } catch (error: any) {
         console.log(error.message);
       }
     };
@@ -56,7 +55,7 @@ export default function Comment({
         setIsEditing(false);
         onEdit(comment, editedContent);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error.message);
     }
   };
