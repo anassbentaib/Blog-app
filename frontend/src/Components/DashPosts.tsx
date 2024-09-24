@@ -7,7 +7,6 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 export default function DashPosts() {
   const { currentUser } = useSelector((state: any) => state.user);
   const [userPosts, setUserPosts] = useState<any | null>([]);
-  console.log("🚀 ~ DashPosts ~ userPosts:", userPosts);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
